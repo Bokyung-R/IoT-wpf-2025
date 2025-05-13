@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 using WpfBookRentalShop01.Models;
 
@@ -31,7 +32,12 @@ namespace WpfBookRentalShop01.ViewModels
 
         public BookGenreViewModel()
         {
+            SelectedGenre = new Genre();
+            SelectedGenre.Names = string.Empty;
+            SelectedGenre.Division = string.Empty;
+            // 순서가 중요
             _isUpdate = false; // 신규 상태
+
             LoadGridFromDb();
         }
 
@@ -77,12 +83,58 @@ namespace WpfBookRentalShop01.ViewModels
         public void SetInit()
         {
             _isUpdate = false;
-            SelectedGenre = null;
+            SelectedGenre = new Genre();
+            SelectedGenre.Names = string.Empty;
+            SelectedGenre.Division = string.Empty;
         }
 
         [RelayCommand]
         public void SaveData()
         {
+            //// 신규추가 / 기존데이터 수정
+            //Debug.WriteLine(SelectedGenre.Names);
+            //Debug.WriteLine(SelectedGenre.Division);
+            //Debug.WriteLine(_isUpdate);
+
+            try
+            {
+                string connectionString = "Server=localhost;Database=bookrentalshop;Uid=root;Pwd=12345;Charset=utf8;";
+                string query = string.Empty;
+
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    if (_isUpdate)  // 기존 데이터 수정
+                    {
+                        query = "UPDATE divtbl SET names = @names WHERE division = @division";
+                    }
+                    else  // 신규 등록
+                    {
+                        query = "INSERT INTO divtbl VALUES (@division, @names)";
+                    }
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@division", SelectedGenre.Division);
+                    cmd.Parameters.AddWithValue("@names", SelectedGenre.Names);
+
+                    int resultCnt = cmd.ExecuteNonQuery();
+
+                    if (resultCnt > 0)
+                    {
+                        MessageBox.Show("저장성공!~");
+                    }
+                    else
+                    {
+                        MessageBox.Show("저장실패!!");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            LoadGridFromDb();   // 저장이 끝난 후 다시 DB내용을 그리드에 그리기
 
         }
 
@@ -95,27 +147,37 @@ namespace WpfBookRentalShop01.ViewModels
                 return;
             }
 
-            string connectionString = "Server=localhost;Database=bookrentalshop;Uid=root;Pwd=12345;Charset=utf8;";
-            string query = "DELETE FROM divtbl WHERE division = @division";
-
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            try
             {
-                conn.Open();
-                MySqlCommand cmd = new MySqlCommand(query, conn);
+                string connectionString = "Server=localhost;Database=bookrentalshop;Uid=root;Pwd=12345;Charset=utf8;";
+                string query = "DELETE FROM divtbl WHERE division = @division";
 
-                cmd.Parameters.AddWithValue("@division", SelectedGenre.Division);
-
-                int resultCnt = cmd.ExecuteNonQuery(); // 한건 삭제가되면 resultCnt = 1, 안지워지면 resultCnt = 0
-
-                if (resultCnt > 0)
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
-                    MessageBox.Show("삭제성공!~");
-                }
-                else
-                {
-                    MessageBox.Show("삭제실패!!");
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                    cmd.Parameters.AddWithValue("@division", SelectedGenre.Division);
+
+                    int resultCnt = cmd.ExecuteNonQuery(); // 한건 삭제가되면 resultCnt = 1, 안지워지면 resultCnt = 0
+
+                    if (resultCnt > 0)
+                    {
+                        MessageBox.Show("삭제성공!~");
+                    }
+                    else
+                    {
+                        MessageBox.Show("삭제실패!!");
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            LoadGridFromDb();
+
         }
     }
 }

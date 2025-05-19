@@ -9,10 +9,10 @@ import uuid
 from collections import OrderedDict
 import random
 
-PUB_ID = 'IOT52' # 본인 아이피 마지막주소
-BROKER = '210.119.12.52' # 본인 아이피
+PUB_ID = 'IOT74' # 본인 아이피 마지막주소
+BROKER = '210.119.12.74' # 본인 아이피
 PORT = 1883
-TOPIC = 'smarthome/52/topic'  # publish/subscribe에서 사용할 토픽
+TOPIC = 'smarthome/74/topic'  # publish/subscribe에서 사용할 토픽
 COLORS = ['RED', 'ORANGE', 'YELLOW', 'GREEN', 'BLUE', 'NAVY', 'PURPLE']
 COUNT = 0
 

@@ -1,37 +1,32 @@
 ﻿using BusanRestaurantApp.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusanRestaurantApp.ViewModels
 {
     public class GoogleMapViewModel : ObservableObject
     {
-        private BusanItem _selectedMatjibItem;
-        private string _mabjibLocation;
+        private BusanItem _selectedMatjbItem;
+        private string _matjibLocation;
 
         public GoogleMapViewModel()
         {
-            // 위도(Lat), 경도(Lng)
-            MatjibLocation = "";
+            MatjibLocation = "";            
         }
 
-        public BusanItem SelectedMatjibItem
+        public BusanItem SelectedMatjbItem
         {
-            get => _selectedMatjibItem;
-            set { 
-                SetProperty(ref _selectedMatjibItem, value);
-                MatjibLocation = $"https://google.com/maps/place/{SelectedMatjibItem.Lat},{SelectedMatjibItem.Lng}";
+            get => _selectedMatjbItem;
+            set {
+                SetProperty(ref _selectedMatjbItem, value);
+                // 위도(Latitude/Lat), 경도(Longitude/Lng)
+                MatjibLocation = $"https://google.com/maps/place/{SelectedMatjbItem.Lat},{SelectedMatjbItem.Lng}";
             }
         }
 
         public string MatjibLocation
         {
-            get => _mabjibLocation;
-            set => SetProperty(ref _mabjibLocation, value);
+            get => _matjibLocation;
+            set => SetProperty(ref _matjibLocation, value);
         }
 
 

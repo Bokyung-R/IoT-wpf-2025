@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using MahApps.Metro.Controls.Dialogs;
 using Newtonsoft.Json.Linq;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Windows;
@@ -16,9 +17,10 @@ namespace BusanRestaurantApp.ViewModels
     {
         IDialogCoordinator dialogCoordinator;
         private ObservableCollection<BusanItem> _busanItems;
+
         private int _pageNo;
         private int _numOfRows;
-        private BusanItem _selectedMatjibItem;
+        private BusanItem _selectedMatjbItem;
 
         public BusanMatjibViewModel(IDialogCoordinator coordinator)
         {
@@ -37,27 +39,26 @@ namespace BusanRestaurantApp.ViewModels
         public int PageNo { get => _pageNo; set => SetProperty(ref _pageNo, value); }
         public int NumOfRows { get => _numOfRows; set => SetProperty(ref _numOfRows, value); }
 
-        public BusanItem SelectedMatjibItem
+        public BusanItem SelectedMatjbItem
         {
-            get => _selectedMatjibItem;
-            set => SetProperty(ref _selectedMatjibItem, value);
+            get => _selectedMatjbItem;
+            set => SetProperty(ref _selectedMatjbItem, value);
         }
 
         [RelayCommand]
         public async Task MatjibItemDoubleClick()
         {
             var viewModel = new GoogleMapViewModel();
+            viewModel.SelectedMatjbItem = SelectedMatjbItem; // 메인창에 있는 선택아이템을 그대로 구글맵쪽으로 전달
             var view = new GoogleMapView
             {
                 DataContext = viewModel,
-            };
-            viewModel.SelectedMatjibItem = SelectedMatjibItem;  // 메인창에 있는 선택아이템을 그대로 구글맵쪽으로 전달
+            };            
             view.Owner = Application.Current.MainWindow;
             view.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            Common.LOGGER.Info($"{SelectedMatjibItem.Lat}, {SelectedMatjibItem.Lng}");
+            Common.LOGGER.Info($"{SelectedMatjbItem.Lat}, {SelectedMatjbItem.Lng}");
             Common.LOGGER.Info("구글맵 오픈");
             view.ShowDialog();
-            
         }
 
         [RelayCommand]
@@ -105,12 +106,12 @@ namespace BusanRestaurantApp.ViewModels
                             Place = Convert.ToString(subitem["PLACE"]),
                             Title = Convert.ToString(subitem["TITLE"]),
                             SubTitle = Convert.ToString(subitem["SUBTITLE"]),
-                            Addr1 = Convert.ToString(subitem["ADDR1"]),
+                            Addr1 = Convert.ToString(subitem["ADDR1"]).Replace("\n", ""),
                             Addr2 = Convert.ToString(subitem["ADDR2"]),
                             Cntct_Tel = Convert.ToString(subitem["CNTCT_TEL"]),
                             Homepage_Url = Convert.ToString(subitem["HOMEPAGE_URL"]),
                             Usage_Day_Week_And_Time = Convert.ToString(subitem["USAGE_DAY_WEEK_AND_TIME"]),
-                            Rprsntv_Menu = Convert.ToString(subitem["RPRSNTV_MENU"]),
+                            Rprsntv_Menu = Convert.ToString(subitem["RPRSNTV_MENU"]).Replace("\n", ""),
                             Main_Img_Normal = Convert.ToString(subitem["MAIN_IMG_NORMAL"]),
                             Main_Img_Thumb = Convert.ToString(subitem["MAIN_IMG_THUMB"]),
                             ItemCntnts = Convert.ToString(subitem["ITEMCNTNTS"]),

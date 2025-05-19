@@ -393,9 +393,10 @@ https://github.com/user-attachments/assets/3140e832-7952-4e2d-937b-5db624aed469
 ## 8일차
 
 ### 부산광역시 부산맛집 정보앱(계속)
-1. 메인창내용을 구글맵창으로 이동
-2. CefSharp.Wpf로 구글맵지도 표현
-3. 위도(Latitude), 경도(Lngitude) 표현
+1. 그리드 표현 아이템 조정
+2. 메인창내용을 구글맵창으로 이동
+3. CefSharp.Wpf로 구글맵지도 표현
+4. 위도(Latitude), 경도(Lngitude) 표현
 
 https://github.com/user-attachments/assets/5050a99f-6947-4095-b7c8-5117fc406727
 

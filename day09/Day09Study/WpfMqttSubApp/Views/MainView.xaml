@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:WpfMqttSubApp.Views"
+    xmlns:helper="clr-namespace:WpfMqttSubApp.Helpers"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
@@ -45,7 +46,9 @@
             </Button>
         </StackPanel>
 
-        <RichTextBox Grid.Row="1" Margin="5" VerticalScrollBarVisibility="Visible">
+        <RichTextBox x:Name="LogBox" Grid.Row="1" Margin="5" VerticalScrollBarVisibility="Visible"
+                     IsReadOnly="True" 
+                     helper:RichTextBoxHelper.BindableDocument="{Binding LogText, UpdateSourceTrigger=PropertyChanged}">
             <RichTextBox.Resources>
                 <Style TargetType="Paragraph">
                     <Setter  Property="Margin" Value="0" />

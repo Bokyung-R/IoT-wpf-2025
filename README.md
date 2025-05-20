@@ -482,4 +482,18 @@ https://github.com/user-attachments/assets/c6beab73-7d4f-4a3a-aea0-8706390005c0
 #### MQTT 시뮬레이션 (계속)
 1. MqttPub.py 소스코드에 Fake IoT 센서값 전달 코딩
 2. Fake 센싱값을 json으로 Publish
-3. 
+3. C# MahApps.Metro 사용 MQTT 데이터 Subscriber앱
+    - CommunityToolkit.Mvvm
+    - MahApps.Metro
+    - MahApps.Metro.IconPacks
+    - Newtonsoft.Json
+    - MQTTnet
+    - MySql.Data
+
+4. DB서버에 접속자 정보확인 쿼리
+    ```sql
+    select * from information_schema.processlist limit 10;
+    ```
+
+5. WPF MVVM 전체 구현
+6. MqqtPub.py 와 Publish된 IoT데이터 WPF에서 Subscribe 예제

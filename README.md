@@ -404,11 +404,11 @@ https://github.com/user-attachments/assets/3140e832-7952-4e2d-937b-5db624aed469
 
 ### 스마트홈 연동 모니터링앱
 
-<img src="./image/wpf0022.jpg" width="650">
+<img src="./image/wpf0022.png" width="650">
 
 - 전면부
 
-<img src="./image/wpf0023.jpg" width="650">
+<img src="./image/wpf0023.png" width="650">
 
 - 후면부
 

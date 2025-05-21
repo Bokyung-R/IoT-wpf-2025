@@ -526,12 +526,12 @@ https://github.com/user-attachments/assets/bb14b3e7-f52d-4d4c-8ad1-01aaca9c38bc
 - WpfMqttSubApp.Models의 SensingInfo.cs 가져오기
 - MQTT 센서 데이터로 동작용 변수 값 할달
 - 실행화면
-  
-    https://github.com/user-attachments/assets/adcfe683-0ee3-4333-bd7f-a10186c1fc59
+
+    https://github.com/user-attachments/assets/6620096d-e3da-4974-9e83-bdfc55531844
   
     스마트홈 조작 영상
 
-    https://github.com/user-attachments/assets/89d5fc1d-94fa-4e70-ae72-7ef3ef1fdfff
+    https://github.com/user-attachments/assets/8f0b7e33-c5df-4108-91d3-750a2183fb3e
 
     스마트홈 모니터링앱 동작영상
 
